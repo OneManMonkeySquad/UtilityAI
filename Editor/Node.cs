@@ -6,8 +6,8 @@ using UnityEngine;
 namespace UtilityAI {
     public class NodeContext {
         public ViewState viewState;
-        public Action<ConnectionPoint> OnClickInPoint;
-        public Action<ConnectionPoint> OnClickOutPoint;
+        public Action<Port> OnClickInPoint;
+        public Action<Port> OnClickOutPoint;
     }
 
     public abstract class Node {
@@ -15,8 +15,8 @@ namespace UtilityAI {
         public string title;
         public bool isDragged;
 
-        List<ConnectionPoint> inPorts = new List<ConnectionPoint>();
-        List<ConnectionPoint> outPorts = new List<ConnectionPoint>();
+        List<Port> inPorts = new List<Port>();
+        List<Port> outPorts = new List<Port>();
 
         ScriptableObject ownedScriptableObject;
 
@@ -79,8 +79,8 @@ namespace UtilityAI {
             return false;
         }
 
-        protected ConnectionPoint AddConnectionPoint(ConnectionPointType type, string text) {
-            var point = new ConnectionPoint(this, type, text, type == ConnectionPointType.In ? context.OnClickInPoint : context.OnClickOutPoint);
+        protected Port AddConnectionPoint(ConnectionPointType type, string text) {
+            var point = new Port(this, type, text, type == ConnectionPointType.In ? context.OnClickInPoint : context.OnClickOutPoint);
             (type == ConnectionPointType.In ? inPorts : outPorts).Add(point);
 
             return point;

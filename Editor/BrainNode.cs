@@ -6,7 +6,7 @@ namespace UtilityAI {
     public class BrainNode : Node {
         public readonly AIBrain brain;
 
-        public ConnectionPoint rootIn;
+        public Port rootIn;
 
         public BrainNode(AIBrain brain, NodeContext context)
             : base(400, 100, "Brain", context, brain) {
@@ -21,7 +21,7 @@ namespace UtilityAI {
             inspector.DrawDefaultInspector();
         }
         
-        bool OnAcceptConnect(ConnectionPoint cp) {
+        bool OnAcceptConnect(Port cp) {
             var sn = cp.node as SelectorNode;
             if (sn == null)
                 return false;

@@ -4,19 +4,23 @@ using UnityEngine;
 namespace UtilityAI {
     public enum ConnectionPointType { In, Out }
 
-    public class ConnectionPoint {
+    public class Port {
         public Rect rect;
 
         public ConnectionPointType type;
 
         public Node node;
         
-        public Action<ConnectionPoint> OnClickConnectionPoint;
-        public Func<ConnectionPoint, bool> AcceptConnect;
+        public Action<Port> OnClickConnectionPoint;
+        public Func<Port, bool> AcceptConnect;
+
+        public Vector2 connectionPoint {
+            get { return rect.center + new Vector2(type == ConnectionPointType.In ? rect.width * -0.5f : rect.width * 0.5f, 0); }
+        }
 
         public string text;
 
-        public ConnectionPoint(Node node, ConnectionPointType type, string text, Action<ConnectionPoint> OnClickConnectionPoint) {
+        public Port(Node node, ConnectionPointType type, string text, Action<Port> OnClickConnectionPoint) {
             this.node = node;
             this.type = type;
             this.text = text;

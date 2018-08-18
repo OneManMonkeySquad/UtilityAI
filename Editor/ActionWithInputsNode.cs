@@ -5,8 +5,8 @@ namespace UtilityAI {
     public class ActionWithInputsNode : Node {
         public readonly ActionWithInputsBase action;
 
-        public ConnectionPoint inputScorersIn;
-        public ConnectionPoint actionOut;
+        public Port inputScorersIn;
+        public Port actionOut;
 
         public ActionWithInputsNode(ActionWithInputsBase action, NodeContext context)
             : base(400, 100, action.GetType().FullName, context, action) {
@@ -32,7 +32,7 @@ namespace UtilityAI {
             inspector.DrawDefaultInspector();
         }
 
-        bool OnAcceptConnect(ConnectionPoint cp) {
+        bool OnAcceptConnect(Port cp) {
             var sn = cp.node as InputScorerNode;
             if (sn == null)
                 return false;
