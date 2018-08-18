@@ -11,7 +11,7 @@ namespace UtilityAI {
         public Port selectorOut;
 
         public SelectorNode(Selector selector, NodeContext context)
-            : base(400, 100, "Selector", context, selector) {
+            : base(400, 100, selector.GetType().FullName, context, selector) {
             this.selector = selector;
 
             qualifiersIn = AddConnectionPoint(ConnectionPointType.In, "Qualifiers");
