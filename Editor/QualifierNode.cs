@@ -5,9 +5,9 @@ namespace UtilityAI {
     public class QualifierNode : Node {
         public readonly Qualifier qualifier;
 
-        public ConnectionPoint actionIn;
-        public ConnectionPoint scorersIn;
-        public ConnectionPoint qualifierOut;
+        public Port actionIn;
+        public Port scorersIn;
+        public Port qualifierOut;
 
         public QualifierNode(Qualifier qualifier, NodeContext context)
             : base(400, 200, qualifier.GetType().FullName, context, qualifier) {
@@ -27,7 +27,7 @@ namespace UtilityAI {
             inspector.DrawDefaultInspector();
         }
 
-        bool OnActionAcceptConnect(ConnectionPoint cp) {
+        bool OnActionAcceptConnect(Port cp) {
             var an = cp.node as ActionNode;
             if (an == null)
                 return false;
@@ -36,7 +36,7 @@ namespace UtilityAI {
             return true;
         }
 
-        bool OnScorersAcceptConnect(ConnectionPoint cp) {
+        bool OnScorersAcceptConnect(Port cp) {
             var sn = cp.node as ContextualScorerNode;
             if (sn == null)
                 return false;

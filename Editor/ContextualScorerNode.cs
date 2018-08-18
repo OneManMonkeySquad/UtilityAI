@@ -4,7 +4,7 @@ namespace UtilityAI {
     public class ContextualScorerNode : Node {
         public readonly ContextualScorer scorer;
 
-        public ConnectionPoint scorerOut;
+        public Port scorerOut;
 
         public ContextualScorerNode(ContextualScorer scorer, NodeContext context)
           : base(400, 100, scorer.GetType().FullName, context, scorer) {

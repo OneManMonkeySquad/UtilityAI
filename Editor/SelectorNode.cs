@@ -7,8 +7,8 @@ namespace UtilityAI {
     public class SelectorNode : Node {
         public readonly Selector selector;
 
-        public ConnectionPoint qualifiersIn;
-        public ConnectionPoint selectorOut;
+        public Port qualifiersIn;
+        public Port selectorOut;
 
         public SelectorNode(Selector selector, NodeContext context)
             : base(400, 100, "Selector", context, selector) {
@@ -25,7 +25,7 @@ namespace UtilityAI {
             inspector.DrawDefaultInspector();
         }
 
-        bool OnAcceptConnect(ConnectionPoint cp) {
+        bool OnAcceptConnect(Port cp) {
             var qn = cp.node as QualifierNode;
             if (qn == null)
                 return false;

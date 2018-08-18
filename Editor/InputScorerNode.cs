@@ -5,7 +5,7 @@ namespace UtilityAI {
     public class InputScorerNode : Node {
         public readonly InputScorerBase scorer;
 
-        public ConnectionPoint scorerOut;
+        public Port scorerOut;
 
         public InputScorerNode(InputScorerBase scorer, NodeContext context)
           : base(400, 100, scorer.GetType().FullName, context, scorer) {

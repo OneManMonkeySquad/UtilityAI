@@ -4,7 +4,7 @@ namespace UtilityAI {
     public class ActionNode : Node {
         public readonly Action action;
 
-        public ConnectionPoint actionOut;
+        public Port actionOut;
 
         public ActionNode(Action action, NodeContext context)
             : base(400, 100, action.GetType().FullName, context, action) {

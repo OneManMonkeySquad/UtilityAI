@@ -15,14 +15,11 @@ namespace UtilityAI {
 
         NodeContext context;
 
-        ConnectionPoint selectedInPoint;
-        ConnectionPoint selectedOutPoint;
-
-        Vector2 offset;
-        Vector2 drag;
-
+        Port selectedInPoint;
+        Port selectedOutPoint;
+        
         const float kZoomMin = 0.1f;
-        const float kZoomMax = 8.0f;
+        const float kZoomMax = 6;
 
         Rect _zoomArea = new Rect(0, 0, 1, 1);
         float _zoom = 1.0f;
@@ -68,8 +65,8 @@ namespace UtilityAI {
             _zoomArea.height = position.height;
             EditorZoomArea.Begin(_zoom, _zoomArea);
             {
-                DrawNodes();
                 DrawConnections();
+                DrawNodes();
                 DrawConnectionLine(Event.current);
             }
             EditorZoomArea.End();
@@ -248,8 +245,6 @@ namespace UtilityAI {
         }
 
         void ProcessEvents(Event e) {
-            drag = Vector2.zero;
-
             switch (e.type) {
                 case EventType.MouseDown:
                     if (e.button == 1) {
@@ -264,19 +259,19 @@ namespace UtilityAI {
                     break;
 
                 case EventType.ScrollWheel:
+                    Vector2 zoomCoordsMousePos = ConvertScreenCoordsToZoomCoords(Event.current.mousePosition);
                     var delta = Event.current.delta;
                     float zoomDelta = -delta.y / 100.0f;
+                    float oldZoom = _zoom;
                     _zoom += zoomDelta;
                     _zoom = Mathf.Clamp(_zoom, kZoomMin, kZoomMax);
-
+                    
                     Event.current.Use();
                     break;
             }
         }
 
         void OnDrag(Vector2 delta) {
-            drag = delta;
-
             for (int i = 0; i < nodes.Count; i++) {
                 nodes[i].Drag(delta);
             }
@@ -442,7 +437,7 @@ namespace UtilityAI {
             GUI.changed = true;
         }
 
-        void OnClickInPoint(ConnectionPoint inPoint) {
+        void OnClickInPoint(Port inPoint) {
             selectedInPoint = inPoint;
 
             if (selectedOutPoint != null) {
@@ -455,7 +450,7 @@ namespace UtilityAI {
             }
         }
 
-        void OnClickOutPoint(ConnectionPoint outPoint) {
+        void OnClickOutPoint(Port outPoint) {
             selectedOutPoint = outPoint;
 
             if (selectedInPoint != null) {
