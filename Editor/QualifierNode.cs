@@ -17,7 +17,7 @@ namespace UtilityAI {
             actionIn.AcceptConnect = OnActionAcceptConnect;
             actionIn.OnDisconnect = OnActionDisconnect;
 
-            scorersIn = AddPort(PortType.In, "Context Scorers");
+            scorersIn = AddPort(PortType.In, "Contextual Scorers");
             scorersIn.AcceptConnect = OnScorersAcceptConnect;
             scorersIn.OnDisconnect = OnScorersDisconnect;
 

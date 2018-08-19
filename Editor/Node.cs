@@ -40,7 +40,8 @@ namespace UtilityAI {
         public void Draw() {
             if (boxStyle == null) {
                 boxStyle = new GUIStyle(GUI.skin.box) {
-                    fontSize = 20
+                    fontSize = 18,
+                    wordWrap = false
                 };
             }
 
