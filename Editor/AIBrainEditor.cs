@@ -174,7 +174,7 @@ namespace UtilityAI {
                     nodes.Add(sn);
 
                     foreach (var an in actionNodes) {
-                        var action = an.action as ActionWithInputsBase;
+                        var action = an.actionWithInputs as ActionWithInputsBase;
                         if (action != null && action.scorers.Contains(scorer)) {
                             var c = new Connection(an.inputScorersIn, sn.scorerOut, OnClickRemoveConnection);
                             connections.Add(c);
@@ -465,6 +465,10 @@ namespace UtilityAI {
 
         void OnClickRemoveConnection(Connection connection) {
             connections.Remove(connection);
+
+            if (connection.inPoint.OnDisconnect != null) {
+                connection.inPoint.OnDisconnect.Invoke(connection.outPoint);
+            }
         }
 
         void CreateConnection() {

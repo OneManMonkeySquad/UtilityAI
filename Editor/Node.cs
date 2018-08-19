@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace UtilityAI {
@@ -22,6 +21,8 @@ namespace UtilityAI {
 
         NodeContext context;
 
+        GUIStyle boxStyle;
+
         public Node(float width, float height, string title, NodeContext context, ScriptableObject ownedScriptableObject) {
             rect = new Rect(512, 256, width, height);
             this.context = context;
@@ -37,18 +38,30 @@ namespace UtilityAI {
         }
 
         public void Draw() {
+            if (boxStyle == null) {
+                boxStyle = new GUIStyle(GUI.skin.box) {
+                    fontSize = 20
+                };
+            }
+
+            GUI.Box(rect, title, boxStyle);
+
+            var titleHeight = 30;
+
+            float inHeight = titleHeight, outHeight = titleHeight;
             for (int i = 0; i < inPorts.Count; ++i) {
                 var port = inPorts[i];
-                port.Draw(i);
+                port.Draw(ref inHeight);
             }
             for (int i = 0; i < outPorts.Count; ++i) {
                 var port = outPorts[i];
-                port.Draw(i);
+                port.Draw(ref outHeight);
             }
 
-            GUI.skin.box.fontSize = 20;
-            GUI.Box(rect, title);
-            GUILayout.BeginArea(new Rect(rect.x, rect.y + 34, rect.width, rect.height - 34));
+            var padding = 4;
+            var height = Mathf.Max(inHeight, outHeight);
+
+            GUILayout.BeginArea(new Rect(rect.x + padding, rect.y + height + padding, rect.width - padding * 2, rect.height - height - padding * 2));
             DrawContent();
             GUILayout.EndArea();
         }
@@ -79,9 +92,9 @@ namespace UtilityAI {
             return false;
         }
 
-        protected Port AddConnectionPoint(ConnectionPointType type, string text) {
-            var point = new Port(this, type, text, type == ConnectionPointType.In ? context.OnClickInPoint : context.OnClickOutPoint);
-            (type == ConnectionPointType.In ? inPorts : outPorts).Add(point);
+        protected Port AddPort(PortType type, string text) {
+            var point = new Port(this, type, text, type == PortType.In ? context.OnClickInPoint : context.OnClickOutPoint);
+            (type == PortType.In ? inPorts : outPorts).Add(point);
 
             return point;
         }

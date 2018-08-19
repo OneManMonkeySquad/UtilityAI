@@ -10,7 +10,7 @@ namespace UtilityAI {
             : base(400, 100, action.GetType().FullName, context, action) {
             this.action = action;
 
-            actionOut = AddConnectionPoint(ConnectionPointType.Out, "Action");
+            actionOut = AddPort(PortType.Out, "Action");
         }
 
         protected override void DrawContent() {

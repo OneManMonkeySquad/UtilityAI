@@ -20,7 +20,7 @@ namespace UtilityAI {
                 scorerType = scorerType.BaseType;
             }
 
-            scorerOut = AddConnectionPoint(ConnectionPointType.Out, "Input Scorer");
+            scorerOut = AddPort(PortType.Out, "Input Scorer");
         }
 
         protected override void DrawContent() {
