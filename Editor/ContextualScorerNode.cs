@@ -10,7 +10,7 @@ namespace UtilityAI {
           : base(400, 100, scorer.GetType().FullName, context, scorer) {
             this.scorer = scorer;
 
-            scorerOut = AddConnectionPoint(ConnectionPointType.Out, "Conextual Scorer");
+            scorerOut = AddPort(PortType.Out, "Context Scorer");
         }
 
         protected override void DrawContent() {

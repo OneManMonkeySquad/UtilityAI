@@ -13,13 +13,15 @@ namespace UtilityAI {
             : base(400, 200, qualifier.GetType().FullName, context, qualifier) {
             this.qualifier = qualifier;
 
-            actionIn = AddConnectionPoint(ConnectionPointType.In, "Action");
+            actionIn = AddPort(PortType.In, "Action");
             actionIn.AcceptConnect = OnActionAcceptConnect;
+            actionIn.OnDisconnect = OnActionDisconnect;
 
-            scorersIn = AddConnectionPoint(ConnectionPointType.In, "Scorers");
+            scorersIn = AddPort(PortType.In, "Context Scorers");
             scorersIn.AcceptConnect = OnScorersAcceptConnect;
+            scorersIn.OnDisconnect = OnScorersDisconnect;
 
-            qualifierOut = AddConnectionPoint(ConnectionPointType.Out, "Qualifier");
+            qualifierOut = AddPort(PortType.Out, "Qualifier");
         }
 
         protected override void DrawContent() {
@@ -36,6 +38,10 @@ namespace UtilityAI {
             return true;
         }
 
+        void OnActionDisconnect(Port cp) {
+            qualifier.action = null;
+        }
+
         bool OnScorersAcceptConnect(Port cp) {
             var sn = cp.node as ContextualScorerNode;
             if (sn == null)
@@ -46,6 +52,15 @@ namespace UtilityAI {
             }
             qualifier.scorers.Add(sn.scorer);
             return true;
+        }
+
+        void OnScorersDisconnect(Port cp) {
+            var sn = (ContextualScorerNode)cp.node;
+
+            if (qualifier.scorers == null)
+                return;
+
+            qualifier.scorers.Remove(sn.scorer);
         }
     }
 }

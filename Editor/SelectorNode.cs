@@ -14,10 +14,11 @@ namespace UtilityAI {
             : base(400, 100, selector.GetType().FullName, context, selector) {
             this.selector = selector;
 
-            qualifiersIn = AddConnectionPoint(ConnectionPointType.In, "Qualifiers");
+            qualifiersIn = AddPort(PortType.In, "Qualifiers");
             qualifiersIn.AcceptConnect = OnAcceptConnect;
+            qualifiersIn.OnDisconnect = OnDisconnect;
 
-            selectorOut = AddConnectionPoint(ConnectionPointType.Out, "Selector");
+            selectorOut = AddPort(PortType.Out, "Selector");
         }
 
         protected override void DrawContent() {
@@ -35,6 +36,15 @@ namespace UtilityAI {
             }
             selector.qualifiers.Add(qn.qualifier);
             return true;
+        }
+
+        void OnDisconnect(Port cp) {
+            var qn = (QualifierNode)cp.node;
+
+            if (selector.qualifiers == null)
+                return;
+
+            selector.qualifiers.Remove(qn.qualifier);
         }
     }
 }

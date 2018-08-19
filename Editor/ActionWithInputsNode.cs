@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
 
 namespace UtilityAI {
-    public class ActionWithInputsNode : Node {
-        public readonly ActionWithInputsBase action;
+    public class ActionWithInputsNode : ActionNode {
+        public readonly ActionWithInputsBase actionWithInputs;
 
         public Port inputScorersIn;
-        public Port actionOut;
 
         public ActionWithInputsNode(ActionWithInputsBase action, NodeContext context)
-            : base(400, 100, action.GetType().FullName, context, action) {
-            this.action = action;
+            : base(action, context) {
+            this.actionWithInputs = action;
 
             var actionType = action.GetType().BaseType;
             while (actionType != null) {
@@ -21,27 +19,30 @@ namespace UtilityAI {
                 actionType = actionType.BaseType;
             }
 
-            inputScorersIn = AddConnectionPoint(ConnectionPointType.In, "InputScorers");
+            inputScorersIn = AddPort(PortType.In, "Input Scorers");
             inputScorersIn.AcceptConnect = OnAcceptConnect;
-
-            actionOut = AddConnectionPoint(ConnectionPointType.Out, "Action");
+            inputScorersIn.OnDisconnect = OnDisconnect;
         }
-
-        protected override void DrawContent() {
-            var inspector = Editor.CreateEditor(action);
-            inspector.DrawDefaultInspector();
-        }
-
+        
         bool OnAcceptConnect(Port cp) {
             var sn = cp.node as InputScorerNode;
             if (sn == null)
                 return false;
 
-            if (action.scorers == null) {
-                action.scorers = new List<InputScorerBase>();
+            if (actionWithInputs.scorers == null) {
+                actionWithInputs.scorers = new List<InputScorerBase>();
             }
-            action.scorers.Add(sn.scorer);
+            actionWithInputs.scorers.Add(sn.scorer);
             return true;
+        }
+
+        void OnDisconnect(Port cp) {
+            var sn = (InputScorerNode)cp.node;
+
+            if (actionWithInputs.scorers == null)
+                return;
+
+            actionWithInputs.scorers.Remove(sn.scorer);
         }
     }
 }

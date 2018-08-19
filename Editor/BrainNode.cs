@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEditor;
 
 namespace UtilityAI {
     public class BrainNode : Node {
@@ -12,8 +10,9 @@ namespace UtilityAI {
             : base(400, 100, "Brain", context, brain) {
             this.brain = brain;
 
-            rootIn = AddConnectionPoint(ConnectionPointType.In, "Root");
+            rootIn = AddPort(PortType.In, "Selector");
             rootIn.AcceptConnect = OnAcceptConnect;
+            rootIn.OnDisconnect = OnDisconnect;
         }
 
         protected override void DrawContent() {
@@ -28,6 +27,10 @@ namespace UtilityAI {
 
             brain.root = sn.selector;
             return true;
+        }
+
+        void OnDisconnect(Port cp) {
+            brain.root = null;
         }
     }
 }
