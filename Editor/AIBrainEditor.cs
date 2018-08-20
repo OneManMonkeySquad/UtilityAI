@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UtilityAI {
     public class AIBrainEditor : EditorWindow {
-        AIBrain brain;
+        Brain brain;
 
         List<Node> nodes = new List<Node>();
         List<Connection> connections = new List<Connection>();
@@ -17,7 +17,7 @@ namespace UtilityAI {
 
         Port selectedInPoint;
         Port selectedOutPoint;
-        
+
         const float kZoomMin = 0.1f;
         const float kZoomMax = 6;
 
@@ -41,7 +41,7 @@ namespace UtilityAI {
                 OnClickOutPoint = OnClickOutPoint
             };
 
-            brain = Selection.activeObject as AIBrain;
+            brain = Selection.activeObject as Brain;
             if (brain != null) {
                 context.viewState = brain.viewState;
                 Rebuild(brain);
@@ -49,7 +49,7 @@ namespace UtilityAI {
         }
 
         void OnGUI() {
-            var newBrain = Selection.activeObject as AIBrain;
+            var newBrain = Selection.activeObject as Brain;
             if (newBrain != null && newBrain != brain) {
                 brain = newBrain;
                 context.viewState = brain.viewState;
@@ -81,7 +81,7 @@ namespace UtilityAI {
             }
         }
 
-        void Rebuild(AIBrain brain) {
+        void Rebuild(Brain brain) {
             Clear();
 
             brainNode = new BrainNode(brain, context);
@@ -111,7 +111,14 @@ namespace UtilityAI {
                     nodes.Add(qn);
                     qualifierNodes.Add(qn);
 
+
+
                     foreach (var sn in selectorNodes) {
+                        if (qualifier.selector == sn.selector) {
+                            var c = new Connection(sn.selectorOut, qn.actionOrSelectorIn, OnClickRemoveConnection);
+                            connections.Add(c);
+                        }
+
                         if (sn.selector.qualifiers.Contains(qualifier)) {
                             var c = new Connection(sn.qualifiersIn, qn.qualifierOut, OnClickRemoveConnection);
                             connections.Add(c);
@@ -130,7 +137,7 @@ namespace UtilityAI {
 
                     foreach (var qn in qualifierNodes) {
                         if (qn.qualifier.action == actionWithInputs) {
-                            var c = new Connection(qn.actionIn, an.actionOut, OnClickRemoveConnection);
+                            var c = new Connection(qn.actionOrSelectorIn, an.actionOut, OnClickRemoveConnection);
                             connections.Add(c);
                         }
                     }
@@ -145,7 +152,7 @@ namespace UtilityAI {
 
                     foreach (var qn in qualifierNodes) {
                         if (qn.qualifier.action == action) {
-                            var c = new Connection(qn.actionIn, an.actionOut, OnClickRemoveConnection);
+                            var c = new Connection(qn.actionOrSelectorIn, an.actionOut, OnClickRemoveConnection);
                             connections.Add(c);
                         }
                     }
@@ -205,11 +212,11 @@ namespace UtilityAI {
         void DrawConnectionLine(Event e) {
             if (selectedInPoint != null && selectedOutPoint == null) {
                 Handles.DrawBezier(
-                    selectedInPoint.rect.center,
+                    selectedInPoint.connectionPoint,
                     e.mousePosition,
-                    selectedInPoint.rect.center + Vector2.left * 50f,
+                    selectedInPoint.connectionPoint + Vector2.left * 50f,
                     e.mousePosition - Vector2.left * 50f,
-                    Color.white,
+                    Color.black,
                     null,
                     2f
                 );
@@ -219,11 +226,11 @@ namespace UtilityAI {
 
             if (selectedOutPoint != null && selectedInPoint == null) {
                 Handles.DrawBezier(
-                    selectedOutPoint.rect.center,
+                    selectedOutPoint.connectionPoint,
                     e.mousePosition,
-                    selectedOutPoint.rect.center - Vector2.left * 50f,
+                    selectedOutPoint.connectionPoint - Vector2.left * 50f,
                     e.mousePosition + Vector2.left * 50f,
-                    Color.white,
+                    Color.black,
                     null,
                     2f
                 );
@@ -248,7 +255,11 @@ namespace UtilityAI {
             switch (e.type) {
                 case EventType.MouseDown:
                     if (e.button == 1) {
-                        ProcessContextMenu(e.mousePosition);
+                        if (selectedInPoint != null || selectedOutPoint != null) {
+                            ClearConnectionSelection();
+                        } else {
+                            ProcessContextMenu(e.mousePosition);
+                        }
                     }
                     break;
 
@@ -265,7 +276,7 @@ namespace UtilityAI {
                     float oldZoom = _zoom;
                     _zoom += zoomDelta;
                     _zoom = Mathf.Clamp(_zoom, kZoomMin, kZoomMax);
-                    
+
                     Event.current.Use();
                     break;
             }

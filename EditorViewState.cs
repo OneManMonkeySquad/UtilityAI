@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UtilityAI {
     [Serializable]
-    public class ViewState {
+    public class EditorViewState {
         [Serializable]
         struct NodeState {
             public ScriptableObject ownedScriptableObject;
@@ -42,12 +42,5 @@ namespace UtilityAI {
             }
             states.Add(new NodeState() { ownedScriptableObject = obj, position = pos });
         }
-    }
-
-    [CreateAssetMenu(menuName = "UtilityAI/AIBrain")]
-    public class AIBrain : ScriptableObject {
-        public AISettings settings;
-        public Selector root;
-        public ViewState viewState;
     }
 }

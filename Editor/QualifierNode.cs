@@ -5,7 +5,7 @@ namespace UtilityAI {
     public class QualifierNode : Node {
         public readonly Qualifier qualifier;
 
-        public Port actionIn;
+        public Port actionOrSelectorIn;
         public Port scorersIn;
         public Port qualifierOut;
 
@@ -13,9 +13,9 @@ namespace UtilityAI {
             : base(400, 200, qualifier.GetType().FullName, context, qualifier) {
             this.qualifier = qualifier;
 
-            actionIn = AddPort(PortType.In, "Action");
-            actionIn.AcceptConnect = OnActionAcceptConnect;
-            actionIn.OnDisconnect = OnActionDisconnect;
+            actionOrSelectorIn = AddPort(PortType.In, "Action / Selector");
+            actionOrSelectorIn.AcceptConnect = OnActionOrSelectorAcceptConnect;
+            actionOrSelectorIn.OnDisconnect = OnActionOrSelectorDisconnect;
 
             scorersIn = AddPort(PortType.In, "Contextual Scorers");
             scorersIn.AcceptConnect = OnScorersAcceptConnect;
@@ -29,16 +29,22 @@ namespace UtilityAI {
             inspector.DrawDefaultInspector();
         }
 
-        bool OnActionAcceptConnect(Port cp) {
+        bool OnActionOrSelectorAcceptConnect(Port cp) {
             var an = cp.node as ActionNode;
-            if (an == null)
-                return false;
-
-            qualifier.action = an.action;
+            if (an != null) {
+                qualifier.action = an.action;
+                qualifier.selector = null;
+            }
+            var sn = cp.node as SelectorNode;
+            if (sn != null) {
+                qualifier.selector = sn.selector;
+                qualifier.action = null;
+            }
             return true;
         }
 
-        void OnActionDisconnect(Port cp) {
+        void OnActionOrSelectorDisconnect(Port cp) {
+            qualifier.selector = null;
             qualifier.action = null;
         }
 
