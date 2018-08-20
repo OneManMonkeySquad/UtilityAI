@@ -2,12 +2,12 @@
 
 namespace UtilityAI {
     public class BrainNode : Node {
-        public readonly AIBrain brain;
+        public readonly Brain brain;
 
         public Port rootIn;
 
-        public BrainNode(AIBrain brain, NodeContext context)
-            : base(400, 100, "Brain", context, brain) {
+        public BrainNode(Brain brain, NodeContext context)
+            : base(400, 100, brain.GetType().FullName, context, brain) {
             this.brain = brain;
 
             rootIn = AddPort(PortType.In, "Selector");

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UtilityAI {
     public class NodeContext {
-        public ViewState viewState;
+        public EditorViewState viewState;
         public Action<Port> OnClickInPoint;
         public Action<Port> OnClickOutPoint;
     }
@@ -112,7 +112,7 @@ namespace UtilityAI {
 
         void SaveToViewState() {
             if (context.viewState == null) {
-                context.viewState = new ViewState();
+                context.viewState = new EditorViewState();
             }
             context.viewState.Set(ownedScriptableObject, rect.position);
         }

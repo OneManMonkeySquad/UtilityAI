@@ -19,15 +19,15 @@ namespace UtilityAI {
 
 
     public class AI {
-        AIBrain _brain;
-        public AIBrain brain {
+        Brain _brain;
+        public Brain brain {
             get { return _brain; }
         }
 
         Action _currentAction;
         float _nextUpdateTime;
 
-        public AI(AIBrain brain) {
+        public AI(Brain brain) {
             Assert.IsNotNull(brain);
             Assert.IsNotNull(brain.root);
 
