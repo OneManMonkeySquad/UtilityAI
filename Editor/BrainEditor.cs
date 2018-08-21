@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 namespace UtilityAI {
-    public class AIBrainEditor : EditorWindow {
+    public class BrainEditor : EditorWindow {
         Brain brain;
 
         List<Node> nodes = new List<Node>();
@@ -24,10 +25,19 @@ namespace UtilityAI {
         Rect _zoomArea = new Rect(0, 0, 1, 1);
         float _zoom = 1.0f;
 
+        [OnOpenAsset(1)]
+        public static bool OnOpenAsset(int instanceID, int line) {
+            if (Selection.activeObject as Brain != null) {
+                OpenWindow();
+                return true;
+            }
+            return false;
+        }
+
         [MenuItem("Window/Cube/UtilityAI Editor")]
         [MenuItem("Cube/Window/UtilityAI Editor")]
         static void OpenWindow() {
-            var window = GetWindow<AIBrainEditor>();
+            var window = GetWindow<BrainEditor>();
             window.titleContent = new GUIContent("UtilityAI Editor");
         }
 
