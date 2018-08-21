@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UtilityAI {
+namespace Cube.UtilityAI {
     public abstract class ActionWithInputsBase : Action {
         public List<InputScorerBase> scorers;
     }

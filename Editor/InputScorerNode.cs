@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace UtilityAI {
+namespace Cube.UtilityAI {
     public class InputScorerNode : Node {
         public readonly InputScorerBase scorer;
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
 
-namespace UtilityAI {
+namespace Cube.UtilityAI {
     public class QualifierNode : Node {
         public readonly Qualifier qualifier;
 

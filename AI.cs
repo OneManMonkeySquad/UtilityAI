@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace UtilityAI {
+namespace Cube.UtilityAI {
     public interface IDebugger {
         void FrameReset();
         void BestQualifier(Qualifier qualifier, Selector parentSelector);

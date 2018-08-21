@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace UtilityAI {
+namespace Cube.UtilityAI {
     public class Connection {
         public Port inPoint;
         public Port outPoint;

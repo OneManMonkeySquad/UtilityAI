@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-namespace UtilityAI {
+namespace Cube.UtilityAI {
     public class BrainNode : Node {
         public readonly Brain brain;
 
