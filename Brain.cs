@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace UtilityAI {
-    [CreateAssetMenu(menuName = "UtilityAI/Brain")]
+    [CreateAssetMenu(menuName = "Cube.UtilityAI/Brain")]
     public class Brain : ScriptableObject {
         public AISettings settings;
         public Selector root;
