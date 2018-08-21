@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UtilityAI {
+namespace Cube.UtilityAI {
     public class ActionWithInputsNode : ActionNode {
         public readonly ActionWithInputsBase actionWithInputs;
 

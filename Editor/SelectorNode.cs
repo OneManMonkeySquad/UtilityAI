@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace UtilityAI {
+namespace Cube.UtilityAI {
     public class SelectorNode : Node {
         public readonly Selector selector;
 

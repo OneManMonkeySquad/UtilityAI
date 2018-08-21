@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UtilityAI {
+namespace Cube.UtilityAI {
     [CreateAssetMenu(menuName = "Cube.UtilityAI/Brain")]
     public class Brain : ScriptableObject {
         public AISettings settings;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UtilityAI {
+namespace Cube.UtilityAI {
     // Helper Rect extension methods
     public static class RectExtensions {
         public static Vector2 TopLeft(this Rect rect)

@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace UtilityAI {
+namespace Cube.UtilityAI {
     public class AIDebugger : EditorWindow, IDebugger {
         Vector2 _scroll;
 
