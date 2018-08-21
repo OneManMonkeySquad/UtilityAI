@@ -4,8 +4,12 @@ Bare-bonesutility ai implementation for [Unity3d](https://unity3d.com).
 ## Getting Started
 Unzip the repository to your Unity Assets oder any subfolder. Create a new Brain asset by right clicking into the project explorer, click Create/Cube.UnityAI/Brain. Double-click the Brain. The editor for the brain will open. Read the node descriptions below on what everything does.
 
+After you have your brain, you need to write some code to connect the AI character with it.
+
+
     using Cube.UtilityAI;
 
+    // Per agent instance; Shared piece of memory between the AI character and the Brain
     [Serializable]
     public class TestContext : IContext {
         public TestAgent agent;
@@ -15,9 +19,9 @@ Unzip the repository to your Unity Assets oder any subfolder. Create a new Brain
 
     // Add this component to the AI character
     public class TestAgent : MonoBehaviour, IContextProvider {
-        public Brain brain; // Assign this in the editor
+        public Brain brain; // Assign this in the editor; One Brain is a "type" of agent, so shared by multiple agents
 
-        AI ai;
+        AI ai; // Instance connecting the AI character with its Brain
 
         void Start() {
             context = new TestContext() {
