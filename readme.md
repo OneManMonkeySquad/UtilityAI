@@ -28,7 +28,7 @@ Unzip the repository to your Unity Assets oder any subfolder. Create a new Brain
 
     #if UNITY_EDITOR
             var debuggerHook = context.agent.gameObject.AddComponent<AIDebuggingHook>();
-            debuggerHook.ai = _ai;
+            debuggerHook.ai = ai;
             debuggerHook.contextProvider = this;
     #endif
         }
@@ -41,6 +41,9 @@ Unzip the repository to your Unity Assets oder any subfolder. Create a new Brain
 
         void UpdateContext() {
             somePositions.Clear();
+            if (Random.Range(0f, 1f) > 0.5f)
+                return;
+
             somePositions.Add(transform.position + Vector3.left);
             somePositions.Add(transform.position + Vector3.right);
         }
@@ -77,6 +80,20 @@ Unzip the repository to your Unity Assets oder any subfolder. Create a new Brain
         }
 
         public override void Stop(IContext context) {
+        }
+    }
+
+    public class HasSomePositions : ContextualScorer {
+        protected override float RawScore(IContext context) {
+            var c = (TestContext)context;
+
+            return c.somePositions.Count > 0 ? 1 : 0;
+        }
+    }
+
+    public class RandomInput : InputScorer<Vector3> {
+        public override float Score(IContext context, Vector3 position) {
+            return Random.Range(0f, 1f);
         }
     }
 
