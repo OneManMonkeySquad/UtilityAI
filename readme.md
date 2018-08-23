@@ -1,4 +1,4 @@
-# Cube.UtilityAI
+# UtilityAI
 Bare-bones utility ai implementation for [Unity3d](https://unity3d.com).
 
 ## Screenshots
