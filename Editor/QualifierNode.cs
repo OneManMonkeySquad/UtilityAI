@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI.Editor {
     public class QualifierNode : Node {
         public readonly Qualifier qualifier;
 
@@ -25,7 +24,7 @@ namespace Cube.UtilityAI {
         }
 
         protected override void DrawContent() {
-            var inspector = Editor.CreateEditor(qualifier);
+            var inspector = UnityEditor.Editor.CreateEditor(qualifier);
             inspector.DrawDefaultInspector();
         }
 

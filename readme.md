@@ -1,13 +1,16 @@
 # Cube.UtilityAI
 Bare-bones utility ai implementation for [Unity3d](https://unity3d.com).
 
+## Screenshots
+![Editor](Docs/Editor.png)
+![Scoring](Docs/Scoring.png)
+
 ## Getting Started
-Unzip the repository to your Unity Assets oder any subfolder. Create a new Brain asset by right clicking into the project explorer, click Create/Cube.UnityAI/Brain. Double-click the Brain. The editor for the brain will open. Read the node descriptions below on what everything does.
+Unzip the repository to your Unity /Assets oder any subfolder. Create a new Brain asset by right clicking in the project explorer, click Create/UnityAI/Brain. Double-click the Brain. The editor will open.
 
 After you have your brain, you need to write some code to connect the AI character with it.
 
-
-    using Cube.UtilityAI;
+    using UtilityAI;
 
     // Per agent instance; Shared piece of memory between the AI character and the Brain
     [Serializable]
@@ -105,16 +108,7 @@ After you have your brain, you need to write some code to connect the AI charact
 Recent Unity version (2018), not testen on older versions.
 
 ## Versioning
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://bitbucket.org/unique-code/cube.utilityai/downloads/?tab=tags).
-
-## Authors
-* **Oliver Weitzel (SirPolly)** - *Everything*
-
-See also the list of [contributors](https://bitbucket.org/unique-code/cube.utilityai/addon/bitbucket-graphs/graphs-repo-page#!graph=contributors) who participated in this project.
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [releases](https://github.com/SirPolly/UtilityAI/releases).
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Editor Screenshots
-![Editor](Docs/Editor.png)
-![Scoring](Docs/Scoring.png)
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

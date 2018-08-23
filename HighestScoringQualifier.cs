@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI {
     public class HighestScoringQualifier : Selector {
         public override Qualifier Select(IContext context) {
             Qualifier bestQualifier = defaultQualifier;

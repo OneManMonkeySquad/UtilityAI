@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI {
     public class InputScorerBase : ScriptableObject {
     }
 

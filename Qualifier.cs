@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI {
     public abstract class Qualifier : ScriptableObject, ISelectable {
         public Action action;
         public Selector selector;

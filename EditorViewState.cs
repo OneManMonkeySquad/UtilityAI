@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI {
     [Serializable]
     public class EditorViewState {
         [Serializable]

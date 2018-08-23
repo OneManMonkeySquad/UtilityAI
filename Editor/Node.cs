@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI.Editor {
     public class NodeContext {
         public EditorViewState viewState;
         public Action<Port> OnClickInPoint;

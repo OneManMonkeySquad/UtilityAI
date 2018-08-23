@@ -1,6 +1,4 @@
-﻿using UnityEditor;
-
-namespace Cube.UtilityAI {
+﻿namespace UtilityAI.Editor {
     public class ContextualScorerNode : Node {
         public readonly ContextualScorer scorer;
 
@@ -14,7 +12,7 @@ namespace Cube.UtilityAI {
         }
 
         protected override void DrawContent() {
-            var inspector = Editor.CreateEditor(scorer);
+            var inspector = UnityEditor.Editor.CreateEditor(scorer);
             inspector.DrawDefaultInspector();
         }
     }

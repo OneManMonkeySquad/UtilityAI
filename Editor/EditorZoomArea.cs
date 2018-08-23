@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI.Editor {
+    // Code in this file is from http://martinecker.com/martincodes/unity-editor-window-zooming/
+
     // Helper Rect extension methods
     public static class RectExtensions {
         public static Vector2 TopLeft(this Rect rect)

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI.Editor {
     public class SelectorNode : Node {
         public readonly Selector selector;
 
@@ -22,7 +19,7 @@ namespace Cube.UtilityAI {
         }
 
         protected override void DrawContent() {
-            var inspector = Editor.CreateEditor(selector);
+            var inspector = UnityEditor.Editor.CreateEditor(selector);
             inspector.DrawDefaultInspector();
         }
 

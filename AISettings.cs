@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI {
     [Serializable]
     public struct AISettings {
         public float updateInterval;

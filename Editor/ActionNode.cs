@@ -1,6 +1,4 @@
-﻿using UnityEditor;
-
-namespace Cube.UtilityAI {
+﻿namespace UtilityAI.Editor {
     public class ActionNode : Node {
         public readonly Action action;
 
@@ -14,7 +12,7 @@ namespace Cube.UtilityAI {
         }
 
         protected override void DrawContent() {
-            var inspector = Editor.CreateEditor(action);
+            var inspector = UnityEditor.Editor.CreateEditor(action);
             inspector.DrawDefaultInspector();
         }
     }

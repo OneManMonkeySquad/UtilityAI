@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI {
     public abstract class ContextualScorer : ScriptableObject {
         public AnimationCurve mapping = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
 

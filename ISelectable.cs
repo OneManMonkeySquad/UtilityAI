@@ -1,5 +1,5 @@
 ﻿
-namespace Cube.UtilityAI {
+namespace UtilityAI {
     public interface ISelectable {
         Qualifier Select(IContext context);
     }

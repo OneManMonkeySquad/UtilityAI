@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI {
     public class MultiplyAll : Qualifier {
         public override float Score(IContext context) {
             var totalScore = 1f;

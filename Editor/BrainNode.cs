@@ -1,6 +1,4 @@
-﻿using UnityEditor;
-
-namespace Cube.UtilityAI {
+﻿namespace UtilityAI.Editor {
     public class BrainNode : Node {
         public readonly Brain brain;
 
@@ -16,7 +14,7 @@ namespace Cube.UtilityAI {
         }
 
         protected override void DrawContent() {
-            var inspector = Editor.CreateEditor(brain);
+            var inspector = UnityEditor.Editor.CreateEditor(brain);
             inspector.DrawDefaultInspector();
         }
         

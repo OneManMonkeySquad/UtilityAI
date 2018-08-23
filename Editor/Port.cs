@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI.Editor {
     public enum PortType {
         In,
         Out

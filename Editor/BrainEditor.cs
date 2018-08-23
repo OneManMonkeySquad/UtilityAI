@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 
-namespace Cube.UtilityAI {
+namespace UtilityAI.Editor {
     public class BrainEditor : EditorWindow {
         Brain brain;
 
