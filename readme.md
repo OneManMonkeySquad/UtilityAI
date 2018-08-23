@@ -8,7 +8,7 @@ Bare-bones utility ai implementation for [Unity3d](https://unity3d.com).
 ## Getting Started
 Unzip the repository to your Unity /Assets oder any subfolder. Create a new Brain asset by right clicking in the project explorer, click Create/UnityAI/Brain. Double-click the Brain. The editor will open.
 
-After you have your brain, you need to write some code to connect the AI character with it.
+By default, there won't be any Actions, ContextualScorers, ..., so you need to add some in code. Here is a short and senseless example to show you the general structure.
 
     using UtilityAI;
 
@@ -16,7 +16,7 @@ After you have your brain, you need to write some code to connect the AI charact
     [Serializable]
     public class TestContext : IContext {
         public TestAgent agent;
-        // Add things here the Brain needs to know, like a list of known enemies or potential cover positions
+        // Add things the Brain needs to know here, like a list of known enemies or potential cover positions
         List<Vector3> somePositions;
     }
 
@@ -34,6 +34,7 @@ After you have your brain, you need to write some code to connect the AI charact
             ai = new AI(brain);
 
     #if UNITY_EDITOR
+            // Add hook so the debugger show the agents state when you select it
             var debuggerHook = context.agent.gameObject.AddComponent<AIDebuggingHook>();
             debuggerHook.ai = ai;
             debuggerHook.contextProvider = this;
@@ -41,12 +42,15 @@ After you have your brain, you need to write some code to connect the AI charact
         }
 
         void Update() {
+            // In real code you would update this every N milliseconds
             UpdateContext();
 
             ai.Process(this);
         }
 
         void UpdateContext() {
+             // In real code you would scan for enemies here (Physics.OverlapSphere) or compute cover positions via raycasts 
+
             somePositions.Clear();
             if (Random.Range(0f, 1f) > 0.5f)
                 return;
@@ -59,6 +63,7 @@ After you have your brain, you need to write some code to connect the AI charact
             return context;
         }
 
+        // Callbacks for the Actions
         public void Jump() {
             transform.position += Vector3.up;
         }
@@ -90,6 +95,8 @@ After you have your brain, you need to write some code to connect the AI charact
         }
     }
 
+    // All scorers must return a value between 0 and 1, 0 meaning worst or none, 1 meaning best or all
+
     public class HasSomePositions : ContextualScorer {
         protected override float RawScore(IContext context) {
             var c = (TestContext)context;
@@ -105,10 +112,10 @@ After you have your brain, you need to write some code to connect the AI charact
     }
 
 ### Prerequisites
-Recent Unity version (2018), not testen on older versions.
+Recent Unity version (2018), not tested on older versions.
 
 ## Versioning
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [releases](https://github.com/SirPolly/UtilityAI/releases).
+We use [SemVer](http://semver.org/) for versioning.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
