@@ -19,8 +19,8 @@ namespace UtilityAI.Editor {
         Port selectedInPoint;
         Port selectedOutPoint;
 
-        const float kZoomMin = 0.1f;
-        const float kZoomMax = 6;
+        const float kZoomMin = 0.2f;
+        const float kZoomMax = 1;
 
         Rect _zoomArea = new Rect(0, 0, 1, 1);
         float _zoom = 1.0f;
@@ -282,10 +282,13 @@ namespace UtilityAI.Editor {
                 case EventType.ScrollWheel:
                     Vector2 zoomCoordsMousePos = ConvertScreenCoordsToZoomCoords(Event.current.mousePosition);
                     var delta = Event.current.delta;
-                    float zoomDelta = -delta.y / 100.0f;
+                    float zoomDelta = -delta.y / 60.0f;
                     float oldZoom = _zoom;
                     _zoom += zoomDelta;
                     _zoom = Mathf.Clamp(_zoom, kZoomMin, kZoomMax);
+
+                    var offset = zoomCoordsMousePos - (oldZoom / _zoom) * zoomCoordsMousePos;
+                    OnDrag(-offset);
 
                     Event.current.Use();
                     break;
