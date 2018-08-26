@@ -1,6 +1,12 @@
 # UtilityAI
 Bare-bones utility ai implementation for [Unity3d](https://unity3d.com).
 
+Features:
+- One asset per agent type shared by all agents
+- Very fast
+- Simple to expand and maintain
+- This library is small and simple and can be a basis for your own implementation
+
 ## Screenshots
 ![Editor](Docs/Editor.png)
 ![Scoring](Docs/Scoring.png)
@@ -25,6 +31,7 @@ By default, there won't be any Actions, ContextualScorers, ..., so you need to a
         public Brain brain; // Assign this in the editor; One Brain is a "type" of agent, so shared by multiple agents
 
         AI ai; // Instance connecting the AI character with its Brain
+        TestContext context;
 
         void Start() {
             context = new TestContext() {
