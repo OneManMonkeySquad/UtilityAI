@@ -1,7 +1,5 @@
-﻿using UnityEngine;
-
-namespace UtilityAI {
-    public class MultiplyAll : Qualifier {
+﻿namespace UtilityAI {
+    public class MultiplyAllQualifier : Qualifier {
         public override float Score(IContext context) {
             var totalScore = 1f;
             foreach (var scorer in scorers) {

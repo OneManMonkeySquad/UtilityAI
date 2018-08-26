@@ -22,7 +22,7 @@ namespace UtilityAI.Editor {
                 outPoint.connectionPoint - Vector2.left * 50f,
                 Color.black,
                 null,
-                2f
+                3
             );
 
             Handles.color = Color.black;

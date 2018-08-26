@@ -40,11 +40,7 @@ namespace UtilityAI.Editor {
             var window = GetWindow<BrainEditor>();
             window.titleContent = new GUIContent("UtilityAI Editor");
         }
-
-        Vector2 ConvertScreenCoordsToZoomCoords(Vector2 screenCoords) {
-            return screenCoords / _zoom;
-        }
-
+        
         void OnEnable() {
             context = new NodeContext {
                 OnClickInPoint = OnClickInPoint,
@@ -228,7 +224,7 @@ namespace UtilityAI.Editor {
                     e.mousePosition - Vector2.left * 50f,
                     Color.black,
                     null,
-                    2f
+                    3
                 );
 
                 GUI.changed = true;
@@ -507,6 +503,10 @@ namespace UtilityAI.Editor {
         void ClearConnectionSelection() {
             selectedInPoint = null;
             selectedOutPoint = null;
+        }
+
+        Vector2 ConvertScreenCoordsToZoomCoords(Vector2 screenCoords) {
+            return screenCoords / _zoom;
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using System;
-using UnityEngine;
-
-namespace UtilityAI {
-    public class HighestScoringQualifier : Selector {
+﻿namespace UtilityAI {
+    public class HighestScoringQualifierSelector : Selector {
         public override Qualifier Select(IContext context) {
             Qualifier bestQualifier = defaultQualifier;
             float bestScore = defaultQualifier != null ? defaultQualifier.Score(context) : float.MinValue;
