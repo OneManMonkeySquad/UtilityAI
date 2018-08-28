@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 namespace UtilityAI.Editor {
+#if UNITY_EDITOR
     public class Connection {
         public Port inPoint;
         public Port outPoint;
@@ -33,4 +34,5 @@ namespace UtilityAI.Editor {
             }
         }
     }
+#endif
 }

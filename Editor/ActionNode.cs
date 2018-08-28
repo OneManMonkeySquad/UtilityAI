@@ -1,4 +1,5 @@
 ﻿namespace UtilityAI.Editor {
+#if UNITY_EDITOR
     public class ActionNode : Node {
         public readonly Action action;
 
@@ -16,4 +17,5 @@
             inspector.DrawDefaultInspector();
         }
     }
+#endif
 }

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+#if UNITY_EDITOR
 using UnityEditor.Callbacks;
+#endif
 using UnityEngine;
 
 namespace UtilityAI.Editor {
+#if UNITY_EDITOR
     public class BrainEditor : EditorWindow {
         Brain brain;
 
@@ -509,4 +512,5 @@ namespace UtilityAI.Editor {
             return screenCoords / _zoom;
         }
     }
+#endif
 }

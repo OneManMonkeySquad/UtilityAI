@@ -1,4 +1,5 @@
 ﻿namespace UtilityAI.Editor {
+#if UNITY_EDITOR
     public class BrainNode : Node {
         public readonly Brain brain;
 
@@ -31,4 +32,5 @@
             brain.root = null;
         }
     }
+#endif
 }
