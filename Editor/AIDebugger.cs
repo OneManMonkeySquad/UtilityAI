@@ -7,8 +7,7 @@ namespace UtilityAI.Editor {
     public class AIDebugger : EditorWindow, IDebugger {
         Vector2 _scroll;
 
-        [MenuItem("Window/Cube/UtilityAI Debugger")]
-        [MenuItem("Cube/Window/UtilityAI Debugger")]
+        [MenuItem("Window/Analysis/UtilityAI Debugger")]
         public static void ShowWindow() {
             var window = GetWindow(typeof(AIDebugger));
             window.titleContent = new GUIContent("UtilityAI Debugger");

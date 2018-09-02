@@ -37,8 +37,7 @@ namespace UtilityAI.Editor {
             return false;
         }
 
-        [MenuItem("Window/Cube/UtilityAI Editor")]
-        [MenuItem("Cube/Window/UtilityAI Editor")]
+        [MenuItem("Window/AI/UtilityAI Editor")]
         static void OpenWindow() {
             var window = GetWindow<BrainEditor>();
             window.titleContent = new GUIContent("UtilityAI Editor");
