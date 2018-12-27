@@ -6,7 +6,7 @@
         public Port scorerOut;
 
         public InputScorerNode(InputScorerBase scorer, NodeContext context)
-          : base(400, 100, scorer.GetType().FullName, context, scorer) {
+          : base(scorer.GetType().FullName, context, scorer) {
             this.scorer = scorer;
 
             var scorerType = scorer.GetType().BaseType;

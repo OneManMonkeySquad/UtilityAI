@@ -1,14 +1,9 @@
-﻿using UnityEngine;
+﻿namespace UtilityAI {
+    public abstract class ContextualScorer<C> : ContextualScorerBase where C : IAIContext {
+        protected abstract float RawScore(C context);
 
-namespace UtilityAI {
-    public abstract class ContextualScorer : ScriptableObject {
-        public AnimationCurve mapping = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
-
-        public float Score(IContext context) {
-            var rawScore = RawScore(context);
-            return mapping.Evaluate(rawScore);
+        protected override float RawScore(IAIContext context) {
+            return RawScore((C)context);
         }
-
-        protected abstract float RawScore(IContext context);
     }
 }

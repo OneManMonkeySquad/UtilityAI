@@ -7,9 +7,9 @@ namespace UtilityAI.Editor {
     public class Connection {
         public Port inPoint;
         public Port outPoint;
-        public Action<Connection> OnClickRemoveConnection;
+        public System.Action<Connection> OnClickRemoveConnection;
 
-        public Connection(Port inPoint, Port outPoint, Action<Connection> OnClickRemoveConnection) {
+        public Connection(Port inPoint, Port outPoint, System.Action<Connection> OnClickRemoveConnection) {
             this.inPoint = inPoint;
             this.outPoint = outPoint;
             this.OnClickRemoveConnection = OnClickRemoveConnection;

@@ -9,7 +9,7 @@ namespace UtilityAI.Editor {
         public Port selectorOut;
 
         public SelectorNode(Selector selector, NodeContext context)
-            : base(400, 100, selector.GetType().FullName, context, selector) {
+            : base(selector.GetType().FullName, context, selector) {
             this.selector = selector;
 
             qualifiersIn = AddPort(PortType.In, "Qualifiers");

@@ -5,8 +5,8 @@ using UnityEngine;
 namespace UtilityAI.Editor {
     public class NodeContext {
         public EditorViewState viewState;
-        public Action<Port> OnClickInPoint;
-        public Action<Port> OnClickOutPoint;
+        public System.Action<Port> OnClickInPoint;
+        public System.Action<Port> OnClickOutPoint;
     }
 
     public abstract class Node {
@@ -22,9 +22,10 @@ namespace UtilityAI.Editor {
         NodeContext context;
 
         GUIStyle boxStyle;
+        Vector2 contentScrollPosition;
 
-        public Node(float width, float height, string title, NodeContext context, ScriptableObject ownedScriptableObject) {
-            rect = new Rect(512, 256, width, height);
+        public Node(string title, NodeContext context, ScriptableObject ownedScriptableObject) {
+            rect = new Rect(512, 256, 400, 200);
             this.context = context;
             this.title = title;
             this.ownedScriptableObject = ownedScriptableObject;
@@ -41,7 +42,7 @@ namespace UtilityAI.Editor {
             if (boxStyle == null) {
                 boxStyle = new GUIStyle(GUI.skin.box) {
                     fontSize = 18,
-                    wordWrap = false
+                    wordWrap = false,
                 };
             }
 
@@ -63,7 +64,9 @@ namespace UtilityAI.Editor {
             var height = Mathf.Max(inHeight, outHeight);
 
             GUILayout.BeginArea(new Rect(rect.x + padding, rect.y + height + padding, rect.width - padding * 2, rect.height - height - padding * 2));
+            contentScrollPosition = GUILayout.BeginScrollView(contentScrollPosition);
             DrawContent();
+            GUILayout.EndScrollView();
             GUILayout.EndArea();
         }
 
@@ -115,6 +118,17 @@ namespace UtilityAI.Editor {
                 context.viewState = new EditorViewState();
             }
             context.viewState.Set(ownedScriptableObject, rect.position);
+        }
+
+        Texture2D MakeTex(int width, int height, Color col) {
+            Color[] pix = new Color[width * height];
+            for (int i = 0; i < pix.Length; ++i) {
+                pix[i] = col;
+            }
+            Texture2D result = new Texture2D(width, height);
+            result.SetPixels(pix);
+            result.Apply();
+            return result;
         }
     }
 }

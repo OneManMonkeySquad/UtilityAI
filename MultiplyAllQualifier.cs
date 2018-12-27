@@ -1,6 +1,6 @@
 ﻿namespace UtilityAI {
     public class MultiplyAllQualifier : Qualifier {
-        public override float Score(IContext context) {
+        public override float Score(IAIContext context) {
             var totalScore = 1f;
             foreach (var scorer in scorers) {
                 var score = scorer.Score(context);

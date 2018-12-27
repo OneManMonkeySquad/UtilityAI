@@ -10,6 +10,7 @@ using UnityEngine;
 namespace UtilityAI.Editor {
 #if UNITY_EDITOR
     public class BrainEditor : EditorWindow {
+        [SerializeField]
         Brain brain;
 
         List<Node> nodes = new List<Node>();
@@ -42,14 +43,17 @@ namespace UtilityAI.Editor {
             var window = GetWindow<BrainEditor>();
             window.titleContent = new GUIContent("UtilityAI Editor");
         }
-        
+
         void OnEnable() {
             context = new NodeContext {
                 OnClickInPoint = OnClickInPoint,
                 OnClickOutPoint = OnClickOutPoint
             };
 
-            brain = Selection.activeObject as Brain;
+            if (brain == null) {
+                brain = Selection.activeObject as Brain;
+            }
+
             if (brain != null) {
                 context.viewState = brain.viewState;
                 Rebuild(brain);
@@ -153,7 +157,7 @@ namespace UtilityAI.Editor {
                     continue;
                 }
 
-                var action = asset as Action;
+                var action = asset as ActionBase;
                 if (action != null) {
                     var an = new ActionNode(action, context);
                     nodes.Add(an);
@@ -168,7 +172,7 @@ namespace UtilityAI.Editor {
             }
 
             foreach (var asset in assets) {
-                var scorer = asset as ContextualScorer;
+                var scorer = asset as ContextualScorerBase;
                 if (scorer != null) {
                     var an = new ContextualScorerNode(scorer, context);
                     nodes.Add(an);
@@ -265,7 +269,8 @@ namespace UtilityAI.Editor {
                     if (e.button == 1) {
                         if (selectedInPoint != null || selectedOutPoint != null) {
                             ClearConnectionSelection();
-                        } else {
+                        }
+                        else {
                             ProcessContextMenu(e.mousePosition);
                         }
                     }
@@ -358,7 +363,7 @@ namespace UtilityAI.Editor {
             var classes = (
                from assembly in AppDomain.CurrentDomain.GetAssemblies()
                from type in assembly.GetTypes()
-               where type.IsSubclassOf(typeof(Action)) && !type.IsAbstract
+               where type.IsSubclassOf(typeof(ActionBase)) && !type.IsAbstract
                select type
            ).ToList();
 
@@ -371,7 +376,7 @@ namespace UtilityAI.Editor {
             var classes = (
                from assembly in AppDomain.CurrentDomain.GetAssemblies()
                from type in assembly.GetTypes()
-               where type.IsSubclassOf(typeof(ContextualScorer))
+               where type.IsSubclassOf(typeof(ContextualScorerBase))
                select type
            ).ToList();
 
@@ -418,7 +423,7 @@ namespace UtilityAI.Editor {
         }
 
         void OnClickAddAction(Vector2 mousePosition, Type type) {
-            var action = (Action)Activator.CreateInstance(type);
+            var action = (ActionBase)Activator.CreateInstance(type);
             action.name = type.FullName;
 
             AssetDatabase.AddObjectToAsset(action, brain);
@@ -427,7 +432,8 @@ namespace UtilityAI.Editor {
             if (actionWithInputs == null) {
                 var node = new ActionNode(action, context);
                 nodes.Add(node);
-            } else {
+            }
+            else {
                 var node = new ActionWithInputsNode(actionWithInputs, context);
                 nodes.Add(node);
             }
@@ -436,7 +442,7 @@ namespace UtilityAI.Editor {
         }
 
         void OnClickAddContextualScorer(Vector2 mousePosition, Type type) {
-            var scorer = (ContextualScorer)Activator.CreateInstance(type);
+            var scorer = (ContextualScorerBase)Activator.CreateInstance(type);
             scorer.name = type.FullName;
 
             AssetDatabase.AddObjectToAsset(scorer, brain);
@@ -466,7 +472,8 @@ namespace UtilityAI.Editor {
                 if (selectedOutPoint.node != selectedInPoint.node) {
                     CreateConnection();
                     ClearConnectionSelection();
-                } else {
+                }
+                else {
                     ClearConnectionSelection();
                 }
             }
@@ -479,7 +486,8 @@ namespace UtilityAI.Editor {
                 if (selectedOutPoint.node != selectedInPoint.node) {
                     CreateConnection();
                     ClearConnectionSelection();
-                } else {
+                }
+                else {
                     ClearConnectionSelection();
                 }
             }

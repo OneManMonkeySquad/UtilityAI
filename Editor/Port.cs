@@ -14,9 +14,9 @@ namespace UtilityAI.Editor {
 
         public Node node;
         
-        public Action<Port> OnClickConnectionPoint;
+        public System.Action<Port> OnClickConnectionPoint;
         public Func<Port, bool> AcceptConnect;
-        public Action<Port> OnDisconnect;
+        public System.Action<Port> OnDisconnect;
 
         public Vector2 connectionPoint {
             get { return rect.center + new Vector2(type == PortType.In ? rect.width * -0.5f : rect.width * 0.5f, 0); }
@@ -24,7 +24,7 @@ namespace UtilityAI.Editor {
 
         public string text;
 
-        public Port(Node node, PortType type, string text, Action<Port> OnClickConnectionPoint) {
+        public Port(Node node, PortType type, string text, System.Action<Port> OnClickConnectionPoint) {
             this.node = node;
             this.type = type;
             this.text = text;

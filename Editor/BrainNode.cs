@@ -6,7 +6,7 @@
         public Port rootIn;
 
         public BrainNode(Brain brain, NodeContext context)
-            : base(400, 100, brain.GetType().FullName, context, brain) {
+            : base(brain.GetType().FullName, context, brain) {
             this.brain = brain;
 
             rootIn = AddPort(PortType.In, "Selector");

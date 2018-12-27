@@ -10,14 +10,14 @@ namespace UtilityAI.Editor {
         public Port qualifierOut;
 
         public QualifierNode(Qualifier qualifier, NodeContext context)
-            : base(400, 200, qualifier.GetType().FullName, context, qualifier) {
+            : base(qualifier.GetType().FullName, context, qualifier) {
             this.qualifier = qualifier;
 
             actionOrSelectorIn = AddPort(PortType.In, "Action / Selector");
             actionOrSelectorIn.AcceptConnect = OnActionOrSelectorAcceptConnect;
             actionOrSelectorIn.OnDisconnect = OnActionOrSelectorDisconnect;
 
-            scorersIn = AddPort(PortType.In, "Contextual Scorers");
+            scorersIn = AddPort(PortType.In, "Context. Scorers");
             scorersIn.AcceptConnect = OnScorersAcceptConnect;
             scorersIn.OnDisconnect = OnScorersDisconnect;
 
@@ -54,7 +54,7 @@ namespace UtilityAI.Editor {
                 return false;
 
             if (qualifier.scorers == null) {
-                qualifier.scorers = new List<ContextualScorer>();
+                qualifier.scorers = new List<ContextualScorerBase>();
             }
             qualifier.scorers.Add(sn.scorer);
             return true;

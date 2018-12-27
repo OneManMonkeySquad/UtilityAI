@@ -35,7 +35,7 @@ namespace UtilityAI.Editor {
             EditorGUILayout.EndScrollView();
         }
         
-        Dictionary<ContextualScorer, float> _foo2 = new Dictionary<ContextualScorer, float>();
+        Dictionary<ContextualScorerBase, float> _foo2 = new Dictionary<ContextualScorerBase, float>();
         Dictionary<Selector, Qualifier> _bestQualifier = new Dictionary<Selector, Qualifier>();
 
         void DrawSelector(Selector selector) {
@@ -79,7 +79,7 @@ namespace UtilityAI.Editor {
             --EditorGUI.indentLevel;
         }
 
-        void DrawContextualScorer(ContextualScorer scorer) {
+        void DrawContextualScorer(ContextualScorerBase scorer) {
             var name = scorer.GetType().Name;
 
             float score;
@@ -99,7 +99,7 @@ namespace UtilityAI.Editor {
             _bestQualifier.Clear();
         }
         
-        public void ContextualScorer(ContextualScorer scorer, float score) {
+        public void ContextualScorer(ContextualScorerBase scorer, float score) {
             _foo2[scorer] = score;
         }
 

@@ -17,18 +17,20 @@ Unzip the repository to your Unity /Assets oder any subfolder. Create a new Brai
 By default, there won't be any Actions, ContextualScorers, ..., so you need to add some in code. Here is a short and senseless example to show you the general structure.
 
 ```cs
+using System;
+using System.Collections.Generic;
 using UtilityAI;
 
 // Per agent instance; Shared piece of memory between the AI character and the Brain
 [Serializable]
-public class TestContext : IContext {
+public class TestContext : IAIContext {
     public TestAgent agent;
     // Add things the Brain needs to know here, like a list of known enemies or potential cover positions
-    List<Vector3> somePositions;
+    public List<Vector3> somePositions;
 }
 
 // Add this component to the AI character
-public class TestAgent : MonoBehaviour, IContextProvider {
+public class TestAgent : MonoBehaviour, IAIContextProvider {
     public Brain brain; // Assign this in the editor; One Brain is a "type" of agent, so shared by multiple agents
 
     AI ai; // Instance connecting the AI character with its Brain
@@ -67,7 +69,7 @@ public class TestAgent : MonoBehaviour, IContextProvider {
         somePositions.Add(transform.position + Vector3.right);
     }
 
-    public IContext GetContext() {
+    public IAIContext GetContext() {
         return context;
     }
 
@@ -81,40 +83,35 @@ public class TestAgent : MonoBehaviour, IContextProvider {
     }
 }
 
-public class JumpAction : Action {
-    public override void Execute(IContext context) {
-        var c = (TestContext)context;
-        c.agent.Jump();
+public class JumpAction : Action<TestContext> {
+    public override void Execute(TestContext context) {
+        context.agent.Jump();
     }
 
-    public override void Stop(IContext context) {
+    public override void Stop(TestContext context) {
     }
 }
 
-public class SetPositionAction : ActionWithInputs<Vector3> {
-    public override void Execute(IContext context) {
-        var c = (TestContext)context;
-
-        var pos = GetBest(c, c.somePositions); // Evaluate the best input using the InputScorers attached to the Action
-        c.agent.SetPosition(pos);
+public class SetPositionAction : ActionWithInputs<TestContext, Vector3> {
+    public override void Execute(TestContext context) {
+        var pos = GetBest(context, context.somePositions); // Evaluate the best input using the InputScorers attached to the Action
+        context.agent.SetPosition(pos);
     }
 
-    public override void Stop(IContext context) {
+    public override void Stop(TestContext context) {
     }
 }
 
 // All scorers must return a value between 0 and 1, 0 meaning worst or none, 1 meaning best or all
 
-public class HasSomePositions : ContextualScorer {
-    protected override float RawScore(IContext context) {
-        var c = (TestContext)context;
-
-        return c.somePositions.Count > 0 ? 1 : 0;
+public class HasSomePositions : ContextualScorer<TestContext> {
+    protected override float RawScore(TestContext context) {
+        return context.somePositions.Count > 0 ? 1 : 0;
     }
 }
 
 public class RandomInput : InputScorer<Vector3> {
-    public override float Score(IContext context, Vector3 position) {
+    public override float Score(IAIContext context, Vector3 position) {
         return Random.Range(0f, 1f);
     }
 }

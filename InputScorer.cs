@@ -5,6 +5,6 @@ namespace UtilityAI {
     }
 
     public abstract class InputScorer<T> : InputScorerBase {
-        public abstract float Score(IContext context, T input);
+        public abstract float Score(IAIContext context, T input);
     }
 }

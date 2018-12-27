@@ -3,17 +3,20 @@ using UnityEngine;
 
 namespace UtilityAI {
     public abstract class Qualifier : ScriptableObject, ISelectable {
-        public Action action;
+        [HideInInspector]
+        public ActionBase action;
+        [HideInInspector]
         public Selector selector;
-        public List<ContextualScorer> scorers;
+        [HideInInspector]
+        public List<ContextualScorerBase> scorers;
 
-        public Qualifier Select(IContext context) {
+        public Qualifier Select(IAIContext context) {
             if (action != null)
                 return this;
             else
                 return selector.Select(context);
         }
 
-        public abstract float Score(IContext context);
+        public abstract float Score(IAIContext context);
     }
 }

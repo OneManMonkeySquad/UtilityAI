@@ -5,15 +5,15 @@ namespace UtilityAI {
     public interface IDebugger {
         void FrameReset();
         void BestQualifier(Qualifier qualifier, Selector parentSelector);
-        void ContextualScorer(ContextualScorer scorer, float score);
+        void ContextualScorer(ContextualScorerBase scorer, float score);
     }
 
     public class AIDebuggingHook : MonoBehaviour {
         public AI ai;
-        public IContextProvider contextProvider;
+        public IAIContextProvider contextProvider;
 
         public static IDebugger currentDebugger;
-        public static IContextProvider currentDebuggedContextProvider;
+        public static IAIContextProvider currentDebuggedContextProvider;
         public static IDebugger debugger;
     }
 
@@ -24,7 +24,7 @@ namespace UtilityAI {
             get { return _brain; }
         }
 
-        Action _currentAction;
+        ActionBase _currentAction;
         float _nextUpdateTime;
 
         public AI(Brain brain) {
@@ -34,10 +34,15 @@ namespace UtilityAI {
             _brain = brain;
         }
 
-        public void Process(IContextProvider contextProvider) {
+        public void Process(IAIContextProvider contextProvider) {
+            var isUpdate = Time.time >= _nextUpdateTime;
+            if (isUpdate) {
+                contextProvider.UpdateContext();
+            }
+
             var context = contextProvider.GetContext();
 
-            if (Time.time >= _nextUpdateTime) {
+            if (isUpdate) {
                 _nextUpdateTime = Time.time + brain.settings.updateInterval;
 
                 if (AIDebuggingHook.currentDebuggedContextProvider == contextProvider) {

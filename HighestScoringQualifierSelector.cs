@@ -1,6 +1,11 @@
-﻿namespace UtilityAI {
+﻿using UnityEngine;
+
+namespace UtilityAI {
     public class HighestScoringQualifierSelector : Selector {
-        public override Qualifier Select(IContext context) {
+        [Range(0, 1)]
+        public float minScoreThreshold = 0;
+
+        public override Qualifier Select(IAIContext context) {
             Qualifier bestQualifier = defaultQualifier;
             float bestScore = defaultQualifier != null ? defaultQualifier.Score(context) : float.MinValue;
             for (int i = 0; i < qualifiers.Count; ++i) {
@@ -17,9 +22,9 @@
                 AIDebuggingHook.debugger.BestQualifier(bestQualifier, this);
             }
 
-            if (bestQualifier == null)
+            if (bestQualifier == null || bestScore < minScoreThreshold)
                 return null;
-
+            
             return bestQualifier.Select(context);
         }
     }
