@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 namespace UtilityAI.Editor {
-#if UNITY_EDITOR
     public class SelectorNode : Node {
         public readonly Selector selector;
 
@@ -45,5 +44,4 @@ namespace UtilityAI.Editor {
             selector.qualifiers.Remove(qn.qualifier);
         }
     }
-#endif
 }

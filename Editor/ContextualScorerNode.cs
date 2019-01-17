@@ -1,5 +1,4 @@
 ﻿namespace UtilityAI.Editor {
-#if UNITY_EDITOR
     public class ContextualScorerNode : Node {
         public readonly ContextualScorerBase scorer;
 
@@ -17,5 +16,4 @@
             inspector.DrawDefaultInspector();
         }
     }
-#endif
 }

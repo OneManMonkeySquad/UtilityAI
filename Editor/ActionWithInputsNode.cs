@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 namespace UtilityAI.Editor {
-#if UNITY_EDITOR
     public class ActionWithInputsNode : ActionNode {
         public readonly ActionWithInputsBase actionWithInputs;
 
@@ -46,5 +45,4 @@ namespace UtilityAI.Editor {
             actionWithInputs.scorers.Remove(sn.scorer);
         }
     }
-#endif
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 namespace UtilityAI.Editor {
-#if UNITY_EDITOR
     public class QualifierNode : Node {
         public readonly Qualifier qualifier;
 
@@ -69,5 +68,4 @@ namespace UtilityAI.Editor {
             qualifier.scorers.Remove(sn.scorer);
         }
     }
-#endif
 }

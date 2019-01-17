@@ -3,7 +3,6 @@ using UnityEditor;
 using UnityEngine;
 
 namespace UtilityAI.Editor {
-#if UNITY_EDITOR
     public class AIDebugger : EditorWindow, IDebugger {
         Vector2 _scroll;
 
@@ -107,5 +106,4 @@ namespace UtilityAI.Editor {
             _bestQualifier[parentSelector] = qualifier;
         }
     }
-#endif
 }

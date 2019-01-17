@@ -1,5 +1,4 @@
 ﻿namespace UtilityAI.Editor {
-#if UNITY_EDITOR
     public class InputScorerNode : Node {
         public readonly InputScorerBase scorer;
 
@@ -26,5 +25,4 @@
             inspector.DrawDefaultInspector();
         }
     }
-#endif
 }
