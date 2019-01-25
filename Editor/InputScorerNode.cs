@@ -10,7 +10,7 @@
 
             var scorerType = scorer.GetType().BaseType;
             while (scorerType != null) {
-                if (scorerType.GetGenericTypeDefinition() == typeof(InputScorer<>)) {
+                if (scorerType.IsGenericType && scorerType.GetGenericTypeDefinition() == typeof(InputScorer<>)) {
                     title += string.Format(" <{0}>", scorerType.GenericTypeArguments[0].Name);
                     break;
                 }
