@@ -1,5 +1,5 @@
 # UtilityAI
-Bare-bones utility ai implementation for [Unity3d](https://unity3d.com). The library is not meant for production use.
+Bare-bones utility ai implementation for [Unity3d](https://unity3d.com).
 
 Features:
 - One asset per agent type shared by all agents
