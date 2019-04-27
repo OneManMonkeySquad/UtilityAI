@@ -11,7 +11,8 @@
             var scorerType = scorer.GetType().BaseType;
             while (scorerType != null) {
                 if (scorerType.IsGenericType && scorerType.GetGenericTypeDefinition() == typeof(InputScorer<>)) {
-                    title += string.Format(" <{0}>", scorerType.GenericTypeArguments[0].Name);
+                    var genericArgs = scorerType.GetGenericArguments();
+                    title += string.Format(" <{0}>", genericArgs[0].Name);
                     break;
                 }
                 scorerType = scorerType.BaseType;

@@ -13,7 +13,8 @@ namespace UtilityAI.Editor {
             var actionType = action.GetType().BaseType;
             while (actionType != null) {
                 if (actionType.IsGenericType && actionType.GetGenericTypeDefinition() == typeof(ActionWithInputs<,>)) {
-                    title += string.Format(" <{0}>", actionType.GenericTypeArguments[1].Name);
+                    var genericArgs = actionType.GetGenericArguments();
+                    title += string.Format(" <{0}>", genericArgs[1].Name);
                     break;
                 }
                 actionType = actionType.BaseType;
