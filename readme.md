@@ -118,7 +118,8 @@ public class RandomInput : InputScorer<Vector3> {
 ```
 
 ### Prerequisites
-Recent Unity version (2018), not tested on older versions.
+Recent Unity version (2017.4.26f1 or later).
 
 ## License
-This project is licensed under the MIT License. You cannot sell this software on the Unity Asset Store or any other platform that sells software tools for developers. You may use this software in a commercial game.
+This project is licensed under the MIT License. You cannot sell this software on the Unity Asset Store or any other platform that sells software 
+tools for developers. You may use this software in a commercial game.
