@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UtilityAI {
     [Serializable]
@@ -12,6 +13,7 @@ namespace UtilityAI {
         }
 
         [SerializeField]
+        [FormerlySerializedAs("states")]
         List<NodeState> nodeStates;
 
         public bool TryGet(ScriptableObject obj, out Vector2 pos) {

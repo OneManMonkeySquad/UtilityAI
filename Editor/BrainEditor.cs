@@ -268,7 +268,7 @@ namespace UtilityAI.Editor {
                             ClearConnectionSelection();
                         }
                         else {
-                            ProcessContextMenu(e.mousePosition);
+                            ShowContextMenu(e.mousePosition);
                         }
                     }
                     break;
@@ -320,17 +320,17 @@ namespace UtilityAI.Editor {
             Event.current.mousePosition = prevMousePos;
         }
 
-        void ProcessContextMenu(Vector2 mousePosition) {
+        void ShowContextMenu(Vector2 mousePosition) {
             var menu = new GenericMenu();
-            AddSelectorContextMenu(menu, mousePosition);
-            AddQualifierContextMenu(menu, mousePosition);
-            AddActionContextMenu(menu, mousePosition);
-            AddContextualScorerContextMenu(menu, mousePosition);
-            AddInputScorerContextMenu(menu, mousePosition);
+            AddSelectorsToContextMenu(menu, mousePosition);
+            AddQualifiersToContextMenu(menu, mousePosition);
+            AddActionsToContextMenu(menu, mousePosition);
+            AddContextualScorersToContextMenu(menu, mousePosition);
+            AddInputScorersToContextMenu(menu, mousePosition);
             menu.ShowAsContext();
         }
 
-        void AddSelectorContextMenu(GenericMenu menu, Vector2 mousePosition) {
+        void AddSelectorsToContextMenu(GenericMenu menu, Vector2 mousePosition) {
             var classes = (
                from assembly in AppDomain.CurrentDomain.GetAssemblies()
                from type in assembly.GetTypes()
@@ -343,7 +343,7 @@ namespace UtilityAI.Editor {
             }
         }
 
-        void AddQualifierContextMenu(GenericMenu menu, Vector2 mousePosition) {
+        void AddQualifiersToContextMenu(GenericMenu menu, Vector2 mousePosition) {
             var classes = (
                from assembly in AppDomain.CurrentDomain.GetAssemblies()
                from type in assembly.GetTypes()
@@ -356,7 +356,7 @@ namespace UtilityAI.Editor {
             }
         }
 
-        void AddActionContextMenu(GenericMenu menu, Vector2 mousePosition) {
+        void AddActionsToContextMenu(GenericMenu menu, Vector2 mousePosition) {
             var classes = (
                from assembly in AppDomain.CurrentDomain.GetAssemblies()
                from type in assembly.GetTypes()
@@ -369,7 +369,7 @@ namespace UtilityAI.Editor {
             }
         }
 
-        void AddContextualScorerContextMenu(GenericMenu menu, Vector2 mousePosition) {
+        void AddContextualScorersToContextMenu(GenericMenu menu, Vector2 mousePosition) {
             var classes = (
                from assembly in AppDomain.CurrentDomain.GetAssemblies()
                from type in assembly.GetTypes()
@@ -382,7 +382,7 @@ namespace UtilityAI.Editor {
             }
         }
 
-        void AddInputScorerContextMenu(GenericMenu menu, Vector2 mousePosition) {
+        void AddInputScorersToContextMenu(GenericMenu menu, Vector2 mousePosition) {
             var classes = (
                from assembly in AppDomain.CurrentDomain.GetAssemblies()
                from type in assembly.GetTypes()

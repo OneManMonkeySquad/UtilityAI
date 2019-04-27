@@ -1,4 +1,6 @@
-﻿namespace UtilityAI.Editor {
+﻿using UnityEngine;
+
+namespace UtilityAI.Editor {
     public class ContextualScorerNode : Node {
         public readonly ContextualScorerBase scorer;
 
