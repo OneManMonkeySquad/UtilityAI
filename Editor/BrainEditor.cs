@@ -400,6 +400,7 @@ namespace UtilityAI.Editor {
             selector.name = type.FullName;
 
             AssetDatabase.AddObjectToAsset(selector, brain);
+            AssetDatabase.SaveAssets();
 
             var node = new SelectorNode(selector, context);
             nodes.Add(node);
@@ -412,6 +413,7 @@ namespace UtilityAI.Editor {
             qualifier.name = type.FullName;
 
             AssetDatabase.AddObjectToAsset(qualifier, brain);
+            AssetDatabase.SaveAssets();
 
             var node = new QualifierNode(qualifier, context);
             nodes.Add(node);
@@ -424,6 +426,7 @@ namespace UtilityAI.Editor {
             action.name = type.FullName;
 
             AssetDatabase.AddObjectToAsset(action, brain);
+            AssetDatabase.SaveAssets();
 
             var actionWithInputs = action as ActionWithInputsBase;
             if (actionWithInputs == null) {
@@ -443,6 +446,7 @@ namespace UtilityAI.Editor {
             scorer.name = type.FullName;
 
             AssetDatabase.AddObjectToAsset(scorer, brain);
+            AssetDatabase.SaveAssets();
 
             var node = new ContextualScorerNode(scorer, context);
             nodes.Add(node);
@@ -455,6 +459,7 @@ namespace UtilityAI.Editor {
             scorer.name = type.FullName;
 
             AssetDatabase.AddObjectToAsset(scorer, brain);
+            AssetDatabase.SaveAssets();
 
             var node = new InputScorerNode(scorer, context);
             nodes.Add(node);
