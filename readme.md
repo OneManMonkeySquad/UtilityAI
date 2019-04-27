@@ -2,7 +2,7 @@
 Bare-bones utility ai implementation for [Unity3d](https://unity3d.com).
 
 Features:
-- One asset per agent type shared by all agents
+- One "brain" asset per agent type shared by all agents
 - Very fast
 - Simple to expand and maintain
 - This library is small and simple and can be a basis for your own implementation
@@ -116,6 +116,8 @@ public class RandomInput : InputScorer<Vector3> {
     }
 }
 ```
+
+The Agent class itself usually contains a state machine with the states None, Move, Animate. That usually covers all AI does in games. The Actions then set these states to move and animate the character. For more info on this (first few pages): [Three States and a Plan: The A.I. of F.E.A.R](http://alumni.media.mit.edu/~jorkin/gdc2006_orkin_jeff_fear.pdf) 
 
 ### Prerequisites
 Recent Unity version (2017.4.26f1 or later).
