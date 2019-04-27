@@ -1,16 +1,10 @@
 {
-    "name": "NewAssembly",
+    "name": "UtilityAI.Editor",
     "references": [
         "UtilityAI"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [
         "Editor"
     ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": []
+    "excludePlatforms": []
 }
