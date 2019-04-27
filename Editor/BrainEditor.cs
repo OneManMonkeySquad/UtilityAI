@@ -128,7 +128,7 @@ namespace UtilityAI.Editor {
                             connections.Add(c);
                         }
 
-                        if (sn.selector.qualifiers.Contains(qualifier)) {
+                        if (sn.selector.qualifiers != null && sn.selector.qualifiers.Contains(qualifier)) {
                             var c = new Connection(sn.qualifiersIn, qn.qualifierOut, OnClickRemoveConnection);
                             connections.Add(c);
                         }

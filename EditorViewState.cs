@@ -12,12 +12,12 @@ namespace UtilityAI {
         }
 
         [SerializeField]
-        List<NodeState> states;
+        List<NodeState> nodeStates;
 
         public bool TryGet(ScriptableObject obj, out Vector2 pos) {
-            if (states != null) {
-                for (int i = 0; i < states.Count; ++i) {
-                    var state = states[i];
+            if (nodeStates != null) {
+                for (int i = 0; i < nodeStates.Count; ++i) {
+                    var state = nodeStates[i];
                     if (state.ownedScriptableObject == obj) {
                         pos = state.position;
                         return true;
@@ -29,18 +29,21 @@ namespace UtilityAI {
         }
 
         public void Set(ScriptableObject obj, Vector2 pos) {
-            if (states == null) {
-                states = new List<NodeState>();
+            if (nodeStates == null) {
+                nodeStates = new List<NodeState>();
             }
-            for (int i = 0; i < states.Count; ++i) {
-                var state = states[i];
+            for (int i = 0; i < nodeStates.Count; ++i) {
+                var state = nodeStates[i];
                 if (state.ownedScriptableObject == obj) {
                     state.position = pos;
-                    states[i] = state;
+                    nodeStates[i] = state;
                     return;
                 }
             }
-            states.Add(new NodeState() { ownedScriptableObject = obj, position = pos });
+            nodeStates.Add(new NodeState() {
+                ownedScriptableObject = obj,
+                position = pos
+            });
         }
     }
 }
