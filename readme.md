@@ -14,8 +14,9 @@ Features:
 ## Getting Started
 Unzip the repository to your Unity /Assets oder any subfolder. Create a new Brain asset by right clicking in the project explorer, click Create/UnityAI/Brain. Double-click the Brain. The editor will open.
 
-By default, there won't be any Actions, ContextualScorers, ..., so you need to add some in code. Here is a short and senseless example to show you the general structure.
+By default, there won't be any Actions, ContextualScorers, InputScorers, ..., so you need to add some in code. Here is a short and senseless example to show you the general structure.
 
+> :warning: Because Actions, ContextualScorers, InputScorers, ... are ScriptableObjects they need to be in their own .cs files with the same name. So in the example put JumpAction into JumpAction.cs, HasSomePositions into HasSomePositions.cs and so on.
 ```cs
 using System;
 using System.Collections.Generic;
