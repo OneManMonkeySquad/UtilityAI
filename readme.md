@@ -34,7 +34,7 @@ public class TestContext : IAIContext {
 public class TestAgent : MonoBehaviour, IAIContextProvider {
     public Brain brain; // Assign this in the editor; One Brain is a "type" of agent, so shared by multiple agents
 
-    AI ai; // Instance connecting the AI character with its Brain
+    AI ai; // Instance connecting the TestAgent with its Brain (contains the actual AI state)
     TestContext context;
 
     void Start() {
@@ -46,7 +46,7 @@ public class TestAgent : MonoBehaviour, IAIContextProvider {
 
 #if UNITY_EDITOR
         // Add hook so the debugger show the agents state when you select it
-        var debuggerHook = context.agent.gameObject.AddComponent<AIDebuggingHook>();
+        var debuggerHook = gameObject.AddComponent<AIDebuggingHook>();
         debuggerHook.ai = ai;
         debuggerHook.contextProvider = this;
 #endif
@@ -62,12 +62,12 @@ public class TestAgent : MonoBehaviour, IAIContextProvider {
     void UpdateContext() {
          // In real code you would scan for enemies here (Physics.OverlapSphere) or compute cover positions via raycasts 
 
-        somePositions.Clear();
+        context.somePositions.Clear();
         if (Random.Range(0f, 1f) > 0.5f)
             return;
 
-        somePositions.Add(transform.position + Vector3.left);
-        somePositions.Add(transform.position + Vector3.right);
+        context.somePositions.Add(transform.position + Vector3.left);
+        context.somePositions.Add(transform.position + Vector3.right);
     }
 
     public IAIContext GetContext() {
