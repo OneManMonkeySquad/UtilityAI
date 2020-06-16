@@ -1,8 +1,10 @@
 ﻿using System;
+using UnityEngine.Serialization;
 
 namespace UtilityAI {
     [Serializable]
     public struct AISettings {
-        public float updateInterval;
+        [FormerlySerializedAs("updateInterval")]
+        public float UpdateIntervalSec;
     }
 }

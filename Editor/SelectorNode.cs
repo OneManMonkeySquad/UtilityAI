@@ -5,6 +5,7 @@ namespace UtilityAI.Editor {
         public readonly Selector selector;
 
         public Port qualifiersIn;
+        public Port defaultQualifier;
         public Port selectorOut;
 
         public SelectorNode(Selector selector, NodeContext context)
@@ -12,8 +13,12 @@ namespace UtilityAI.Editor {
             this.selector = selector;
 
             qualifiersIn = AddPort(PortType.In, "Qualifiers");
-            qualifiersIn.AcceptConnect = OnAcceptConnect;
-            qualifiersIn.OnDisconnect = OnDisconnect;
+            qualifiersIn.AcceptConnect = OnQualifiersAcceptConnect;
+            qualifiersIn.OnDisconnect = OnQualifiersDisconnect;
+
+            defaultQualifier = AddPort(PortType.In, "Default Qualifier");
+            defaultQualifier.AcceptConnect = OnDefaultQualifierAcceptConnect;
+            defaultQualifier.OnDisconnect = OnDefaultQualifierDisconnect;
 
             selectorOut = AddPort(PortType.Out, "Selector");
         }
@@ -23,7 +28,7 @@ namespace UtilityAI.Editor {
             inspector.DrawDefaultInspector();
         }
 
-        bool OnAcceptConnect(Port cp) {
+        bool OnQualifiersAcceptConnect(Port cp) {
             var qn = cp.node as QualifierNode;
             if (qn == null)
                 return false;
@@ -35,13 +40,26 @@ namespace UtilityAI.Editor {
             return true;
         }
 
-        void OnDisconnect(Port cp) {
+        void OnQualifiersDisconnect(Port cp) {
             var qn = (QualifierNode)cp.node;
 
             if (selector.qualifiers == null)
                 return;
 
             selector.qualifiers.Remove(qn.qualifier);
+        }
+
+        bool OnDefaultQualifierAcceptConnect(Port cp) {
+            var qn = cp.node as QualifierNode;
+            if (qn == null)
+                return false;
+
+            selector.defaultQualifier = qn.qualifier;
+            return true;
+        }
+
+        void OnDefaultQualifierDisconnect(Port cp) {
+            selector.defaultQualifier = null;
         }
     }
 }

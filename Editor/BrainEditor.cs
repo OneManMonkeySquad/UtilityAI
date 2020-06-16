@@ -264,7 +264,8 @@ namespace UtilityAI.Editor {
             switch (e.type) {
                 case EventType.MouseDown:
                     if (e.button == 1) {
-                        if (selectedInPoint != null || selectedOutPoint != null) {
+                        var isCurrentDragging = selectedInPoint != null || selectedOutPoint != null;
+                        if (isCurrentDragging) {
                             ClearConnectionSelection();
                         }
                         else {

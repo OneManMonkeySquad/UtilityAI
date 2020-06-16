@@ -46,7 +46,7 @@ namespace UtilityAI.Editor {
                     break;
             }
 
-            if (GUI.Button(rect, text, GUI.skin.box)) {
+            if (GUI.Button(rect, text)) {
                 if (OnClickConnectionPoint != null) {
                     OnClickConnectionPoint(this);
                 }

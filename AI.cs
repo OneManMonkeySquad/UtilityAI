@@ -36,31 +36,29 @@ namespace UtilityAI {
 
         public void Process(IAIContextProvider contextProvider) {
             var isUpdate = Time.time >= _nextUpdateTime;
-            if (isUpdate) {
-                contextProvider.UpdateContext();
+            if (!isUpdate)
+                return;
+
+            _nextUpdateTime = Time.time + brain.settings.UpdateIntervalSec;
+
+            contextProvider.UpdateContext();
+
+            if (AIDebuggingHook.currentDebuggedContextProvider == contextProvider) {
+                AIDebuggingHook.debugger = AIDebuggingHook.currentDebugger;
+                AIDebuggingHook.debugger.FrameReset();
             }
 
             var context = contextProvider.GetContext();
+            var bestQualifier = _brain.root.Select(context);
 
-            if (isUpdate) {
-                _nextUpdateTime = Time.time + brain.settings.updateInterval;
+            AIDebuggingHook.debugger = null;
 
-                if (AIDebuggingHook.currentDebuggedContextProvider == contextProvider) {
-                    AIDebuggingHook.debugger = AIDebuggingHook.currentDebugger;
-                    AIDebuggingHook.debugger.FrameReset();
-                }
+            if (_currentAction != null && (bestQualifier == null || bestQualifier.action != _currentAction)) {
+                _currentAction.Stop(context);
+            }
 
-                var bestQualifier = _brain.root.Select(context);
-
-                AIDebuggingHook.debugger = null;
-
-                if (_currentAction != null && (bestQualifier == null || bestQualifier.action != _currentAction)) {
-                    _currentAction.Stop(context);
-                }
-
-                if (bestQualifier != null) {
-                    _currentAction = bestQualifier.action;
-                }
+            if (bestQualifier != null) {
+                _currentAction = bestQualifier.action;
             }
 
             if (_currentAction != null) {
