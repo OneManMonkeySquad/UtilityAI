@@ -14,6 +14,10 @@ namespace UtilityAI.Editor {
         public string title;
         public bool isDragged;
 
+        protected virtual Color backgroundColor {
+            get { return Color.grey; }
+        }
+
         List<Port> inPorts = new List<Port>();
         List<Port> outPorts = new List<Port>();
 
@@ -23,12 +27,15 @@ namespace UtilityAI.Editor {
 
         GUIStyle boxStyle;
         Vector2 contentScrollPosition;
+        Color cachedBackgroundColor;
 
         public Node(string title, NodeContext context, ScriptableObject ownedScriptableObject) {
             rect = new Rect(512, 256, 400, 200);
             this.context = context;
             this.title = title;
             this.ownedScriptableObject = ownedScriptableObject;
+
+            cachedBackgroundColor = Color.Lerp(backgroundColor, Color.white, 0.8f);
 
             LoadFromViewState();
         }
@@ -42,14 +49,20 @@ namespace UtilityAI.Editor {
             if (boxStyle == null) {
                 boxStyle = new GUIStyle(GUI.skin.box) {
                     fontSize = 18,
-                    wordWrap = false,
+                    wordWrap = false
                 };
             }
 
+            var oldColor = GUI.color;
+            GUI.color = cachedBackgroundColor;
+
             GUI.Box(rect, title, boxStyle);
+
+            GUI.color = oldColor;
 
             var titleHeight = 30;
 
+            // Ports
             float inHeight = titleHeight, outHeight = titleHeight;
             for (int i = 0; i < inPorts.Count; ++i) {
                 var port = inPorts[i];
@@ -60,6 +73,7 @@ namespace UtilityAI.Editor {
                 port.Draw(ref outHeight);
             }
 
+            // Content
             var padding = 4;
             var height = Mathf.Max(inHeight, outHeight);
 
@@ -118,17 +132,6 @@ namespace UtilityAI.Editor {
                 context.viewState = new EditorViewState();
             }
             context.viewState.Set(ownedScriptableObject, rect.position);
-        }
-
-        Texture2D MakeTex(int width, int height, Color col) {
-            Color[] pix = new Color[width * height];
-            for (int i = 0; i < pix.Length; ++i) {
-                pix[i] = col;
-            }
-            Texture2D result = new Texture2D(width, height);
-            result.SetPixels(pix);
-            result.Apply();
-            return result;
         }
     }
 }

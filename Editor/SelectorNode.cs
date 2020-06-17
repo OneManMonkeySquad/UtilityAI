@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace UtilityAI.Editor {
     public class SelectorNode : Node {
@@ -7,6 +8,10 @@ namespace UtilityAI.Editor {
         public Port qualifiersIn;
         public Port defaultQualifier;
         public Port selectorOut;
+
+        protected override Color backgroundColor {
+            get { return Color.yellow; }
+        }
 
         public SelectorNode(Selector selector, NodeContext context)
             : base(selector.GetType().FullName, context, selector) {

@@ -1,8 +1,12 @@
-﻿namespace UtilityAI.Editor {
+﻿using UnityEngine;
+
+namespace UtilityAI.Editor {
     public class BrainNode : Node {
         public readonly Brain brain;
 
         public Port rootIn;
+
+        protected override Color backgroundColor => Color.white;
 
         public BrainNode(Brain brain, NodeContext context)
             : base(brain.GetType().FullName, context, brain) {

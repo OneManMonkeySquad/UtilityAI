@@ -332,68 +332,42 @@ namespace UtilityAI.Editor {
         }
 
         void AddSelectorsToContextMenu(GenericMenu menu, Vector2 mousePosition) {
-            var classes = (
-               from assembly in AppDomain.CurrentDomain.GetAssemblies()
-               from type in assembly.GetTypes()
-               where type.IsSubclassOf(typeof(Selector)) && !type.IsAbstract
-               select type
-           ).ToList();
-
-            foreach (var cls in classes) {
+            foreach (var cls in GatherClasses<Selector>()) {
                 menu.AddItem(new GUIContent("Selector/" + cls.FullName), false, () => OnClickAddSelector(mousePosition, cls));
             }
         }
 
         void AddQualifiersToContextMenu(GenericMenu menu, Vector2 mousePosition) {
-            var classes = (
-               from assembly in AppDomain.CurrentDomain.GetAssemblies()
-               from type in assembly.GetTypes()
-               where type.IsSubclassOf(typeof(Qualifier)) && !type.IsAbstract
-               select type
-           ).ToList();
-
-            foreach (var cls in classes) {
+            foreach (var cls in GatherClasses<Qualifier>()) {
                 menu.AddItem(new GUIContent("Qualifiers/" + cls.FullName), false, () => OnClickAddQualifier(mousePosition, cls));
             }
         }
 
         void AddActionsToContextMenu(GenericMenu menu, Vector2 mousePosition) {
-            var classes = (
-               from assembly in AppDomain.CurrentDomain.GetAssemblies()
-               from type in assembly.GetTypes()
-               where type.IsSubclassOf(typeof(ActionBase)) && !type.IsAbstract
-               select type
-           ).ToList();
-
-            foreach (var cls in classes) {
+            foreach (var cls in GatherClasses<ActionBase>()) {
                 menu.AddItem(new GUIContent("Actions/" + cls.FullName), false, () => OnClickAddAction(mousePosition, cls));
             }
         }
 
         void AddContextualScorersToContextMenu(GenericMenu menu, Vector2 mousePosition) {
-            var classes = (
-               from assembly in AppDomain.CurrentDomain.GetAssemblies()
-               from type in assembly.GetTypes()
-               where type.IsSubclassOf(typeof(ContextualScorerBase)) && !type.IsAbstract
-               select type
-           ).ToList();
-
-            foreach (var cls in classes) {
+            foreach (var cls in GatherClasses<ContextualScorerBase>()) {
                 menu.AddItem(new GUIContent("ContextualScorers/" + cls.FullName), false, () => OnClickAddContextualScorer(mousePosition, cls));
             }
         }
 
         void AddInputScorersToContextMenu(GenericMenu menu, Vector2 mousePosition) {
-            var classes = (
-               from assembly in AppDomain.CurrentDomain.GetAssemblies()
-               from type in assembly.GetTypes()
-               where type.IsSubclassOf(typeof(InputScorerBase)) && !type.IsAbstract
-               select type
-           ).ToList();
-
-            foreach (var cls in classes) {
+            foreach (var cls in GatherClasses<InputScorerBase>()) {
                 menu.AddItem(new GUIContent("InputScorers/" + cls.FullName), false, () => OnClickAddInputScorer(mousePosition, cls));
             }
+        }
+
+        List<Type> GatherClasses<T>() {
+            return (
+                from assembly in AppDomain.CurrentDomain.GetAssemblies()
+                from type in assembly.GetTypes()
+                where type.IsSubclassOf(typeof(T)) && !type.IsAbstract
+                select type
+            ).ToList();
         }
 
         void OnClickAddSelector(Vector2 mousePosition, Type type) {
@@ -488,11 +462,8 @@ namespace UtilityAI.Editor {
             if (selectedInPoint != null) {
                 if (selectedOutPoint.node != selectedInPoint.node) {
                     CreateConnection();
-                    ClearConnectionSelection();
                 }
-                else {
-                    ClearConnectionSelection();
-                }
+                ClearConnectionSelection();
             }
         }
 
@@ -510,7 +481,8 @@ namespace UtilityAI.Editor {
                     return;
             }
 
-            connections.Add(new Connection(selectedInPoint, selectedOutPoint, OnClickRemoveConnection));
+            var newConnection = new Connection(selectedInPoint, selectedOutPoint, OnClickRemoveConnection);
+            connections.Add(newConnection);
         }
 
         void ClearConnectionSelection() {

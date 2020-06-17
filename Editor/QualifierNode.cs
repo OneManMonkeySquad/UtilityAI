@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace UtilityAI.Editor {
     public class QualifierNode : Node {
@@ -7,6 +8,8 @@ namespace UtilityAI.Editor {
         public Port actionOrSelectorIn;
         public Port scorersIn;
         public Port qualifierOut;
+
+        protected override Color backgroundColor => Color.red;
 
         public QualifierNode(Qualifier qualifier, NodeContext context)
             : base(qualifier.GetType().FullName, context, qualifier) {

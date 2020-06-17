@@ -6,6 +6,7 @@ namespace UtilityAI.Editor {
 
         public Port scorerOut;
 
+        protected override Color backgroundColor => Color.blue;
         public ContextualScorerNode(ContextualScorerBase scorer, NodeContext context)
           : base(scorer.GetType().FullName, context, scorer) {
             this.scorer = scorer;
