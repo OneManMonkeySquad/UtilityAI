@@ -1,5 +1,5 @@
 # UtilityAI
-Bare-bones utility ai implementation for [Unity3d](https://unity3d.com). All pull requests and feedback is welcome.
+Bare-bones utility ai implementation for [Unity3d](https://unity3d.com). All pull requests and feedback are welcome.
 
 Features:
 - One "brain" asset per agent type shared by all agents
